@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css"
+          integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'main.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <title>App Gestor de tareas</title>
+</head>
+
+<body>
+<header>
+    <h1 class="display-4 text-center mt-4 titulo">APP DE GESTIÓN DE TAREAS</h1>
+</header>
+<div id="{% if alert == True %}alert{% endif %}">
+    <main class="container p-4" id="body">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <form action="/crear-tarea" method="post">
+                            <div class="form-group">
+                                <input type="text" name="contenido_tarea" placeholder="Tarea" class="form-control"
+                                       autofocus>
+                            </div>
+                            <div class="botones_radio">
+                                {% for categoria in categorias %}
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" id="btncheck{{ categoria }}" name="categoria"
+                                           value="{{ categoria }}" autocomplete="off">
+                                    <label class="btn btn-info" for="btncheck{{ categoria }}">{{ categoria }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-fecha">
+                                <label for="fecha"><h4> Debe estar completa antes del: </h4></label>
+                                <input type="date" id="fecha" name="fecha"
+                                       value="{{ datetime.now().strftime('%Y-%m-%d') }}"
+                                       min="2024-01-01"
+                                       max="2030-12-31"/>
+                            </div>
+                            <button type="submit" class="btn btn-block guardar "><h4> Guardar </h4></button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for tarea in lista_de_tareas %}
+                            <div class="badge rounded-pill">
+                                <li class="list-group-item d-flex flex-fill P-2 align-items-center">
+                                <span>
+                                    <form action="/editar-contenido" method="post">
+                                        <button class="btn-edicion">
+                                            <input type="hidden" name="tarea_id" value="{{ tarea.id }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </span>
+                                    <span class="{% if tarea.hecha== true %}hecha{% endif %} flex-grow-1 d-flex">
+
+                               <h6 class="tarea-contenido">{{tarea.contenido}}</h6>
+                                </span>
+                                    <span class="p-2">
+                                    {{tarea.categoria}}
+                                </span>
+                                    <span class="p-2">
+                                        <a href="/tarea-hecha/{{tarea.id}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em"
+                                                 class="bi bi-archive" viewBox="0 0 16 16">
+                                                <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                            </svg>
+                                        </a>
+                                    </span>
+                                    <span class="p-2">
+                                    <a href="/eliminar-tarea/{{tarea.id}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                        </svg>
+                                    </a>
+                                </span>
+                                    <span><h6> Limite </h6>{{tarea.fecha.strftime('%Y-%m-%d')}}</span>
+                                </li>
+                            </div>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<section>
+    {% if alert == True %}
+    <div class="alert-activo alert-danger alert-dismissible fade show" role="alert">
+        <a href="/volver">
+            <h2><strong> ¡Ojo! </strong> {{ error_message }} </h2>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" name="volver_home">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </a>
+    </div>
+    {% endif %}
+</section>
+<footer>
+    <form action="/filtro-categoria" method="post">
+        <div class="botones_footer">
+            {% for categoria in categorias %}
+            <div class="btn-group" role="group" aria-label="Default button group">
+                <button type="submit" class="btn btn-outline-primary btn-footer" name="categoria-en-footer"
+                        value="{{ categoria }}">{{ categoria }}
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</footer>
+</body>
+</html>

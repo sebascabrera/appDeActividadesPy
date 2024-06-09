@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sandstone/bootstrap.min.css"
+          integrity="sha384-zEpdAL7W11eTKeoBJK1g79kgl9qjP7g84KfK3AZsuonx38n8ad+f5ZgXtoSDxPOh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'main.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <title>Cambio de contenido</title>
+</head>
+<body>
+<main class="container p-4">
+    <div class="row d-flex flex-column">
+        <h1 class="display-4 text-center mt-4 titulo">MODIFICAR LA TAREA</h1>
+        <label class="form-label mt-4"><h5 class="form-label-contenido"> TAREA ACTUAL </h5></label>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control text-center" id="floatingInput" placeholder="{{tarea.contenido}}"
+                   readonly>
+            <label for="floatingInput"><h5 class="form-label-contenido"> NUEVA TAREA </h5></label>
+        </div>
+        <form action="/edicion-contenido" method="post">
+            <div class="form-floating">
+                <input type="hidden" name="tarea_id" value="{{ tarea.id }}">
+                <input type="text" name="nuevo_contenido_tarea" class="form-control text-center fw-bold"
+                       id="floatingPassword"
+                       placeholder="Ingrese modificación" autofocus>
+                <label for="floatingPassword"><h5 class="form-label-contenido"> ¿NUEVA FECHA? </h5></label>
+                <div class="form-floating d-flex justify-content-center mb-4">
+                <input type="date" id="fecha" name="fecha" value="{{ tarea.fecha.strftime('%Y-%m-%d') }}"
+                       min="2024-01-01"
+                       max="2030-12-31" />
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-block guardar "><h4> Guardar nueva tarea </h4></button>
+            </div>
+        </form>
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+/*  Estilos generales   */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background: #1A2980;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #26D0CE, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: "Permanent Marker", cursive;
+}
+
+/*  Estilos titulo  */
+
+.titulo {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 4.55rem;
+  text-shadow: 2px 2px 4px #EFEFEF;
+}
+
+/*  Estilos card*/
+
+.card{
+  background-color: moccasin;
+}
+
+/*  Estilos card-header */
+
+.form-control{
+  margin-bottom: 30px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+.botones_radio{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+}
+.botones_radio input[type="radio"]:checked + label{
+  background:#13EAB6;
+  color: #000000;
+}
+.form-fecha{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin: 15px;
+}
+h4{
+  font-family: "Permanent Marker", cursive;
+}
+label{
+  text-shadow: 2px 2px 4px #000000;
+    }
+.guardar{
+  transition: background-color 0.5s;
+  text-shadow: 4px 4px 6px #000000;
+  background-color:#76D7C4;
+  color: #F4F6F7;
+}
+.guardar:hover {
+  background-color: #13EAB6;
+}
+
+
+/*  Estilos card-body   */
+
+ul .lista{
+  border-radius: 15px;
+  border: 2px solid #000000;
+}
+.list-group-item {
+  display: flex;
+  justify-content: space-between
+  margin-bottom: 1rem; /* Añadido para el espacio entre elementos */
+  padding: 1rem;
+}
+.hecha {
+  text-decoration: line-through;
+  color: #cfcfcf;
+  text-overflow:ellipsis;
+}
+.tarea-contenido {
+  word-wrap: break-word;
+  white-space: normal;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.bi-archive path {
+  fill: #00ff00;
+}
+.bi-trash3 path {
+  fill: #FF0000;
+}
+.btn-edicion{
+  border: none;
+}
+.bi-pencil-fill{
+  fill: #A020F0;
+}
+
+/* estilos del footer */
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px 20px 0px;
+}
+.btn-footer{
+  color:#ffffff;
+}
+
+/* estilos del alert */
+
+#alert {
+  display: none;
+  transition: opacity 5s ease;
+  opacity: 0;
+}
+.alert-activo{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin: 100px;
+  padding: 20px;
+  opacity: 1;
+}
+
+/* estilos de tablas */
+
+.table{
+  color: blanchedalmond;
+}
+th, td{
+  text-align: center;
+}
+
+/* estilo de contenido.html */
+.form-label-contenido{
+  color: blanchedalmond;
+}
